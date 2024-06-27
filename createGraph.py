@@ -1,6 +1,7 @@
 import os
 from openai import OpenAI
 import graphviz
+import time
 
 #This method makes an API call to gpt-3.5-turbo. It passes in the user-inputted graph along with the system prompt.
 #Make sure you have the system prompt graphviz_system_prompt.md stored in a prompts folder in your directory.
@@ -45,8 +46,11 @@ def main():
     if checkPrereqs():
          exit(1)
     graph = takeUserInput()
+    start = time.time()
     graphCode = callGPT(graph)
+    end = time.time()
     createGraphviz(graphCode)
+    print("Calling GPT-3.5-turbo and receiving an output took: " + str(end-start) + "seconds.")
 
 if __name__ == "__main__":
     main()
